@@ -7,6 +7,9 @@ from models import create_model
 from util.writer import Writer
 from test import run_test
 
+#GPU memory usage lib imports
+import torch
+
 if __name__ == '__main__':
     opt = TrainOptions().parse()
     dataset = DataLoader(opt)
@@ -16,6 +19,13 @@ if __name__ == '__main__':
     model = create_model(opt)
     writer = Writer(opt)
     total_steps = 0
+
+    #GPU memory usage code
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    print('Using device:', device)
+    if device.type == 'cuda':
+        print(torch.cuda.get_device_name(0))
+    #end of GPU
 
     for epoch in range(opt.epoch_count, opt.niter + opt.niter_decay + 1):
         epoch_start_time = time.time()
@@ -58,5 +68,11 @@ if __name__ == '__main__':
         if epoch % opt.run_test_freq == 0:
             acc = run_test(epoch)
             writer.plot_acc(acc, epoch)
+
+        #GPU memory usage
+        print('Memory Usage:')
+        print('Allocated:', round(torch.cuda.memory_allocated(0)/1024**3,1), 'GB')
+        print('Cached:   ', round(torch.cuda.memory_cached(0)/1024**3,1), 'GB')
+        #end of GPU
 
     writer.close()
