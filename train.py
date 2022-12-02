@@ -72,7 +72,7 @@ if __name__ == '__main__':
         #GPU memory usage
         print('Memory Usage:')
         print('Allocated:', round(torch.cuda.memory_allocated(0)/1024**3,1), 'GB')
-        print('Cached:   ', round(torch.cuda.memory_cached(0)/1024**3,1), 'GB')
+        print('Cached:   ', round(torch.cuda.memory_cached(0)/1024**3,1), 'GB\n')
         #end of GPU
 
     writer.close()
