@@ -169,7 +169,7 @@ class MeshConvNet(nn.Module):
         #x = self.gp(x)
         #print(x.shape)
         #x = x.view(self.k[-1], -1)
-        x = x.view(x.size(0), -1)
+        x = x.view(x.size(1), -1)
         print(x.shape)
         #######
 
