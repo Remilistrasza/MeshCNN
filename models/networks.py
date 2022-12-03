@@ -137,9 +137,12 @@ class MeshConvNet(nn.Module):
 
             #removing pooling layer
             #setattr(self, 'pool{}'.format(i), MeshPool(self.res[i + 1]))
+            #####
 
+        #removing pooling layer
+        #self.gp = torch.nn.AvgPool1d(self.res[-1])
+        ####
 
-        self.gp = torch.nn.AvgPool1d(self.res[-1])
         # self.gp = torch.nn.MaxPool1d(self.res[-1])
         self.fc1 = nn.Linear(self.k[-1], fc_n)
         self.fc2 = nn.Linear(fc_n, nclasses)
@@ -152,8 +155,12 @@ class MeshConvNet(nn.Module):
 
             #removing pooling layer
             #x = getattr(self, 'pool{}'.format(i))(x, mesh)
+            ######
 
-        x = self.gp(x)
+        #removing pooling layer
+        #x = self.gp(x)
+        #######
+        
         x = x.view(-1, self.k[-1])
 
         x = F.relu(self.fc1(x))
