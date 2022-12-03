@@ -144,7 +144,7 @@ class MeshConvNet(nn.Module):
             #####
 
         #removing pooling layer
-        #self.gp = torch.nn.AvgPool1d(self.res[-1])
+        self.gp = torch.nn.AvgPool1d(self.res[-1])
         ####
 
         # self.gp = torch.nn.MaxPool1d(self.res[-1])
@@ -164,7 +164,7 @@ class MeshConvNet(nn.Module):
             ######
 
         #removing pooling layer
-        #x = self.gp(x)
+        x = self.gp(x)
         x = x.view(-1, self.k[-1])
         #######
 
