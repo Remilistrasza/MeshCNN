@@ -130,8 +130,8 @@ class MeshConvNet(nn.Module):
                  nresblocks=3):
         super(MeshConvNet, self).__init__()
         self.k = [nf0] + conv_res
-        #self.res = [input_res] + pool_res
-        self.res = [input_res]
+        self.res = [input_res] + pool_res
+        #self.res = [input_res]
         norm_args = get_norm_args(norm_layer, self.k[1:])
 
         for i, ki in enumerate(self.k[:-1]):
