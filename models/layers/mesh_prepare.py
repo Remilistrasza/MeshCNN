@@ -308,29 +308,13 @@ def set_edge_lengths(mesh, edge_points=None):
 
 
 ############## Original features ##################
-# def extract_features(mesh):
-#     features = []
-#     edge_points = get_edge_points(mesh)
-#     set_edge_lengths(mesh, edge_points)
-#     with np.errstate(divide='raise'):
-#         try:
-#             for extractor in [dihedral_angle, symmetric_opposite_angles, symmetric_ratios]:
-#                 feature = extractor(mesh, edge_points)
-#                 features.append(feature)
-#             return np.concatenate(features, axis=0)
-#         except Exception as e:
-#             print(e)
-#             raise ValueError(mesh.filename, 'bad features')
-
-
-############## new features for problem 2 ###########
 def extract_features(mesh):
     features = []
     edge_points = get_edge_points(mesh)
     set_edge_lengths(mesh, edge_points)
     with np.errstate(divide='raise'):
         try:
-            for extractor in [edge_centroid]:
+            for extractor in [dihedral_angle, symmetric_opposite_angles, symmetric_ratios]:
                 feature = extractor(mesh, edge_points)
                 features.append(feature)
             return np.concatenate(features, axis=0)
@@ -339,12 +323,28 @@ def extract_features(mesh):
             raise ValueError(mesh.filename, 'bad features')
 
 
-def edge_centroid(mesh, edge_points):
-    centroid = (mesh.vs[edge_points[:, 0]] + mesh.vs[edge_points[:, 1]] + mesh.vs[edge_points[:, 2]] + mesh.vs[edge_points[:, 3]]) / 4
-    #centroid = np.concatenate((np.expand_dims(centroid[0], 0), np.expand_dims(centroid[1], 0), np.expand_dims(centroid[2], 0)), axis=0)
-    centroid = np.sum(centroid, axis=1)
-    centroid = np.expand_dims(centroid, axis=0)
-    return centroid
+############## new features for problem 2 ###########
+# def extract_features(mesh):
+#     features = []
+#     edge_points = get_edge_points(mesh)
+#     set_edge_lengths(mesh, edge_points)
+#     with np.errstate(divide='raise'):
+#         try:
+#             for extractor in [edge_centroid]:
+#                 feature = extractor(mesh, edge_points)
+#                 features.append(feature)
+#             return np.concatenate(features, axis=0)
+#         except Exception as e:
+#             print(e)
+#             raise ValueError(mesh.filename, 'bad features')
+
+
+# def edge_centroid(mesh, edge_points):
+#     centroid = (mesh.vs[edge_points[:, 0]] + mesh.vs[edge_points[:, 1]]) / 2
+#     #centroid = np.concatenate((np.expand_dims(centroid[0], 0), np.expand_dims(centroid[1], 0), np.expand_dims(centroid[2], 0)), axis=0)
+#     centroid = np.sum(centroid, axis=1)
+#     centroid = np.expand_dims(centroid, axis=0)
+#     return centroid
 ############## End of new features ############
 
 
