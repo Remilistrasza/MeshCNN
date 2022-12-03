@@ -341,8 +341,9 @@ def extract_features(mesh):
 
 def edge_centroid(mesh, edge_points):
     centroid = (mesh.vs[edge_points[:, 0]] + mesh.vs[edge_points[:, 1]]) / 2
-    #centroid = np.concatenate((np.expand_dims(centroid, 0)), axis=0)
-    centroid = np.expand_dims(centroid, axis=2)
+    print(type(centroid[0]))
+    centroid = np.concatenate((np.expand_dims(centroid[:][0], 0)), axis=0)
+    #centroid = np.expand_dims(centroid, axis=2)
     print(centroid.shape)
     #centroid = np.sum(centroid, axis=1)
     return centroid
