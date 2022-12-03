@@ -307,19 +307,42 @@ def set_edge_lengths(mesh, edge_points=None):
     mesh.edge_lengths = edge_lengths
 
 
+############## Original features ##################
+# def extract_features(mesh):
+#     features = []
+#     edge_points = get_edge_points(mesh)
+#     set_edge_lengths(mesh, edge_points)
+#     with np.errstate(divide='raise'):
+#         try:
+#             for extractor in [dihedral_angle, symmetric_opposite_angles, symmetric_ratios]:
+#                 feature = extractor(mesh, edge_points)
+#                 features.append(feature)
+#             return np.concatenate(features, axis=0)
+#         except Exception as e:
+#             print(e)
+#             raise ValueError(mesh.filename, 'bad features')
+
+
+############## new features for problem 2 ###########
 def extract_features(mesh):
     features = []
     edge_points = get_edge_points(mesh)
     set_edge_lengths(mesh, edge_points)
     with np.errstate(divide='raise'):
         try:
-            for extractor in [dihedral_angle, symmetric_opposite_angles, symmetric_ratios]:
+            for extractor in [edge_centroid]:
                 feature = extractor(mesh, edge_points)
                 features.append(feature)
             return np.concatenate(features, axis=0)
         except Exception as e:
             print(e)
             raise ValueError(mesh.filename, 'bad features')
+
+
+def edge_centroid(mesh, edge_points):
+    centroid = (edge_points[:, 0] + edge_points[:, 1] + edge_points[:, 2] + edge_points[:, 3])/4
+    return centroid
+############## End of new features ############
 
 
 def dihedral_angle(mesh, edge_points):
