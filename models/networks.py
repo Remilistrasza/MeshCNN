@@ -164,7 +164,9 @@ class MeshConvNet(nn.Module):
         #removing pooling layer
         #x = self.gp(x)
         #x = x.view(-1, self.k[-1])
-        x = x.view(-1, 512)
+        print(x.shape)
+        x = x.view(-1, self.k[-1])
+        print(x.shape)
         #######
 
         x = F.relu(self.fc1(x))
