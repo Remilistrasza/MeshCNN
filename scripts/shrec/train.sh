@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
+#--ncf 64 128 256 256 \
+#--pool_res 600 450 300 180 \
+
 ## run the training
 python train.py \
 --dataroot datasets/shrec_16 \
 --name shrec16 \
-#--ncf 64 128 256 256 \
-#--pool_res 600 450 300 180 \
 --ncf 64 128 256 \
 --pool_res 600 450 300 \
 --norm group \
