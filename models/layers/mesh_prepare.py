@@ -307,7 +307,8 @@ def set_edge_lengths(mesh, edge_points=None):
     mesh.edge_lengths = edge_lengths
 
 
-############## Original features ##################
+
+############## new features for problem 2, commented for removing pooling test ###########
 def extract_features(mesh):
     features = []
     edge_points = get_edge_points(mesh)
@@ -315,6 +316,7 @@ def extract_features(mesh):
     with np.errstate(divide='raise'):
         try:
             for extractor in [dihedral_angle, symmetric_opposite_angles, symmetric_ratios]:
+            #for extractor in [edge_centroid]:
                 feature = extractor(mesh, edge_points)
                 features.append(feature)
             return np.concatenate(features, axis=0)
@@ -323,31 +325,9 @@ def extract_features(mesh):
             raise ValueError(mesh.filename, 'bad features')
 
 
-############## new features for problem 2 ###########
-# def extract_features(mesh):
-#     features = []
-#     edge_points = get_edge_points(mesh)
-#     set_edge_lengths(mesh, edge_points)
-#     with np.errstate(divide='raise'):
-#         try:
-#             for extractor in [edge_centroid]:
-#                 feature = extractor(mesh, edge_points)
-#                 features.append(feature)
-#             return np.concatenate(features, axis=0)
-#         except Exception as e:
-#             print(e)
-#             raise ValueError(mesh.filename, 'bad features')
-
-
 def edge_centroid(mesh, edge_points):
-    #centroid coordinate 1
-    #centroid = (mesh.vs[edge_points[:, 0]] + mesh.vs[edge_points[:, 1]]) * 3 / 8 + (mesh.vs[edge_points[:, 2]] + mesh.vs[edge_points[:, 3]]) / 8
-    #centroid = np.expand_dims(centroid, axis=2)
-
-    #centroid coordinate 2
-    centroid = (mesh.vs[edge_points[:, 0]] + mesh.vs[edge_points[:, 1]] + mesh.vs[edge_points[:, 2]] + mesh.vs[edge_points[:, 3]]) / 4
+    centroid = (mesh.vs[edge_points[:, 0]] + mesh.vs[edge_points[:, 1]]) * 3 / 8 + (mesh.vs[edge_points[:, 2]] + mesh.vs[edge_points[:, 3]]) / 8
     centroid = np.expand_dims(centroid, axis=2)
-
     return centroid
 ############## End of new features ############
 
