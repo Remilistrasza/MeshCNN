@@ -158,11 +158,11 @@ class MeshConvNet(nn.Module):
             print(x.shape)
             x = F.relu(getattr(self, 'norm{}'.format(i))(x))
             print(x.shape)
-            x = x[:-1]
+            #x = x[:-1]
 
             #removing pooling layer
             #x = getattr(self, 'pool{}'.format(i))(x, mesh)
-            print(x.shape)
+            #print(x.shape)
             ######
 
         #removing pooling layer
