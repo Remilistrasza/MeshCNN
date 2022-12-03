@@ -139,12 +139,12 @@ class MeshConvNet(nn.Module):
             setattr(self, 'norm{}'.format(i), norm_layer(**norm_args[i]))
 
             #removing pooling layer
-            setattr(self, 'pool{}'.format(i), MeshPool(self.res[i + 1]))
+            #setattr(self, 'pool{}'.format(i), MeshPool(self.res[i + 1]))
             #setattr(self, 'pool{}'.format(i), numpy.array(input_res))
             #####
 
         #removing pooling layer
-        self.gp = torch.nn.AvgPool1d(self.res[-1])
+        #self.gp = torch.nn.AvgPool1d(self.res[-1])
         ####
 
         # self.gp = torch.nn.MaxPool1d(self.res[-1])
