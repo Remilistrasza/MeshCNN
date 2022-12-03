@@ -149,7 +149,7 @@ class MeshConvNet(nn.Module):
 
         # self.gp = torch.nn.MaxPool1d(self.res[-1])
         #self.fc1 = nn.Linear(self.k[-1], fc_n)
-        self.fc1 = nn.Linear(256, fc_n)
+        self.fc1 = nn.Linear(12000, fc_n)
         self.fc2 = nn.Linear(fc_n, nclasses)
 
     def forward(self, x, mesh):
@@ -168,7 +168,8 @@ class MeshConvNet(nn.Module):
         #removing pooling layer
         #x = self.gp(x)
         #print(x.shape)
-        x = x.view(self.k[-1], -1)
+        #x = x.view(self.k[-1], -1)
+        x = x.view(x.size(0), -1)
         print(x.shape)
         #######
 
