@@ -8,6 +8,8 @@ import torch.nn.functional as F
 from models.layers.mesh_pool import MeshPool
 from models.layers.mesh_unpool import MeshUnpool
 
+import numpy
+
 
 ###############################################################################
 # Helper Functions
@@ -137,7 +139,7 @@ class MeshConvNet(nn.Module):
 
             #removing pooling layer
             #setattr(self, 'pool{}'.format(i), MeshPool(self.res[i + 1]))
-            setattr(self, 'pool{}'.format(i), norm_layer(**norm_args[i]))
+            setattr(self, 'pool{}'.format(i), numpy.array(input_res))
             #####
 
         #removing pooling layer
@@ -155,7 +157,7 @@ class MeshConvNet(nn.Module):
             x = F.relu(getattr(self, 'norm{}'.format(i))(x))
 
             #removing pooling layer
-            #x = getattr(self, 'pool{}'.format(i))(x, mesh)
+            x = getattr(self, 'pool{}'.format(i))(x, mesh)
             ######
 
         #removing pooling layer
