@@ -171,6 +171,8 @@ class MeshConvNet(nn.Module):
         #x = x.view(-1, self.k[-1])
         x = x.view(16, 256, 750)
         print(x.shape)
+        x = x.view(-1, self.k[-1])
+        print(x.shape)
         #######
 
         x = F.relu(self.fc1(x))
