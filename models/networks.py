@@ -139,7 +139,7 @@ class MeshConvNet(nn.Module):
 
             #removing pooling layer
             #setattr(self, 'pool{}'.format(i), MeshPool(self.res[i + 1]))
-            setattr(self, 'pool{}'.format(i), numpy.array(input_res))
+            #setattr(self, 'pool{}'.format(i), numpy.array(input_res))
             #####
 
         #removing pooling layer
@@ -157,14 +157,14 @@ class MeshConvNet(nn.Module):
             x = F.relu(getattr(self, 'norm{}'.format(i))(x))
 
             #removing pooling layer
-            x = getattr(self, 'pool{}'.format(i))(x, mesh)
+            #x = getattr(self, 'pool{}'.format(i))(x, mesh)
             ######
 
         #removing pooling layer
         #x = self.gp(x)
-        #######
 
-        x = x.view(-1, self.k[-1])
+        #x = x.view(-1, self.k[-1])
+        #######
 
         x = F.relu(self.fc1(x))
         x = self.fc2(x)
