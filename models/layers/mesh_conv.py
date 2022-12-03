@@ -9,7 +9,7 @@ class MeshConv(nn.Module):
     mesh: list of mesh data-structure (len(mesh) == Batch)
     and applies convolution
     """
-    def __init__(self, in_channels, out_channels, k=5, bias=True):
+    def __init__(self, in_channels, out_channels, k=3, bias=True):
         super(MeshConv, self).__init__()
         self.conv = nn.Conv2d(in_channels=in_channels, out_channels=out_channels, kernel_size=(1, k), bias=bias)
         self.k = k
